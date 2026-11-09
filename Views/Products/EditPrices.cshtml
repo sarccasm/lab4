@@ -1,0 +1,42 @@
+﻿@model ProductsValidation.Models.ProductPriceEditViewModel
+
+@{
+    ViewData["Title"] = "Edit product prices";
+}
+
+<h1>Edit @Model.Category prices</h1>
+
+<form asp-action="EditPrices" method="post">
+    <input asp-for="Category" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var index = 0; index < Model.Products.Count; index++)
+            {
+                <tr>
+                    <td>
+                        @Model.Products[index].Id
+                        <input asp-for="Products[index].Id" type="hidden" />
+                    </td>
+                    <td>@Model.Products[index].Name</td>
+                    <td>
+                        <input asp-for="Products[index].Price" class="form-control" />
+                        <span asp-validation-for="Products[index].Price" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

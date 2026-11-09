@@ -26,4 +26,19 @@ After clicking on Save button:
      - all fields on a creational form should be readonly 
      - fields should fill in only with parameters fron query string
      - on click on the Save button user should be displayed in wiew mode
+
+## Running the application
+
+Run the application with `dotnet run` and open the local URL printed by the
+ASP.NET Core host.
+
+Products can be created or edited from the Products page. The category links
+open a form for editing prices of all products in that category.
+
+To create a user, open `/Users/Create` with `name`, `email`, and `role` query
+parameters, for example:
+
+`/Users/Create?name=NewUser&email=newuser%40example.com&role=user`
+
+The user form is read-only; the query string is the source of the values.
  

@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    @foreach (Product.Category category in Enum.GetValues(typeof(Product.Category)))
+    {
+        <a asp-action="EditPrices" asp-route-category="@category">Edit @category prices</a>
+        @if (category != Product.Category.Transport)
+        {
+            <span> | </span>
+        }
+    }
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -50,7 +60,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Details", "View", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>

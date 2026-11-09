@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using ProductsValidation.Models;
 using ProductsValidation.Services;
 
@@ -19,9 +15,30 @@ namespace ProductsValidation.Controllers
             users = data.Users;
         }
         
-        public IActionResult Index(string id)
+        public IActionResult Index()
         {
-            return View("Index", users);
+            return View(users);
+        }
+
+        [HttpGet]
+        public IActionResult Create([FromQuery] User user)
+        {
+            return View(user);
+        }
+
+        [HttpPost]
+        [ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreatePost([FromQuery] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            user.Id = users.Count == 0 ? 1 : users.Max(existingUser => existingUser.Id) + 1;
+            users.Add(user);
+            return View("View", user);
         }
     }
 }
